@@ -1,0 +1,32 @@
+{
+  "name": "bit-final-back",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Natalia Baena Cabas",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CNataliaBaena/bit-final-back.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CNataliaBaena/bit-final-back/issues"
+  },
+  "homepage": "https://github.com/CNataliaBaena/bit-final-back#readme",
+  "dependencies": {
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "mongoose": "^9.3.1"
+  },
+  "devDependencies": {
+    "morgan": "^1.10.1",
+    "nodemon": "^3.1.14"
+  }
+}
