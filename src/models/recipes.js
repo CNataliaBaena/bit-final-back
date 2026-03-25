@@ -2,22 +2,23 @@ import {Schema , model} from 'mongoose';
 
 const recipeSchema = new Schema({
     name: {
-        type: String
+        type: String,
     },
     description: {
-        type: String
+        type: String,
     },
     price: {
-        type: Number
+        type: Number,
     },
     ingredients: {
-        type: String
+        type: String,
     },
     instructions: {
-        type: String
-    }
-}
+        type: String,
+    },
+},
+{versionKey: false, timestamps: true },
+);
 
-, {versionKey: false, timestamps: true });
 export default model('Recipe', recipeSchema);
 

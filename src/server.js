@@ -2,16 +2,18 @@ import express from 'express';
 import "dotenv/config";
 import connectDB from './config/db.js';
 import dns from 'node:dns';
-import recipesRouter from './routers/recipes.js';
+import recipesRouter from './routers/recipes.js';;
 
 const server = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 
 if (process.env.NODE_ENV !== 'production') { 
   dns.setServers(['8.8.8.8', '8.8.4.4']); 
 }
 
 connectDB();
+
+server.use(express.json());
 
 server.use("/recipes", recipesRouter);
 
