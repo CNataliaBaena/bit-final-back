@@ -1,8 +1,10 @@
 import express from 'express';
 import "dotenv/config";
+import cors from 'cors';
 import connectDB from './config/db.js';
 import dns from 'node:dns';
 import recipesRouter from './routers/recipes.js';;
+
 
 const server = express();
 const PORT = process.env.PORT || 4000;
@@ -12,6 +14,8 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 connectDB();
+
+server.use(cors());
 
 server.use(express.json());
 
