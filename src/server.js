@@ -1,48 +1,144 @@
 import express from 'express';
 import "dotenv/config";
 import cors from 'cors';
+
 import connectDB from './config/db.js';
+
 import dns from 'node:dns';
-import recipesRouter from './routers/recipes.js';
-// importaciones para acceder a las rutas del front - configurar el acceso al front
+
+import recetasRouter
+from './routers/recetas.js';
+
+import productosRouter
+from './routers/productos.js';
+
 import path from "path";
-import { fileURLToPath } from "url";
 
-// configuraciones para acceder al front
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+import {
+  fileURLToPath
+} from "url";
 
 
-const server = express();
-const PORT = process.env.PORT || 4000;
+/* =========================
+   CONFIG FRONT
+========================= */
 
-if (process.env.NODE_ENV !== 'production') { 
-  dns.setServers(['8.8.8.8', '8.8.4.4']); 
+const __filename =
+  fileURLToPath(
+    import.meta.url
+  );
+
+const __dirname =
+  path.dirname(
+    __filename
+  );
+
+
+/* =========================
+   SERVER
+========================= */
+
+const server =
+  express();
+
+const PORT =
+  process.env.PORT
+  || 4000;
+
+
+/* =========================
+   DNS FIX
+========================= */
+
+if (
+  process.env.NODE_ENV
+  !== 'production'
+) {
+
+  dns.setServers([
+    '8.8.8.8',
+    '8.8.4.4'
+  ]);
+
 }
+
+
+/* =========================
+   DB
+========================= */
 
 connectDB();
 
-server.use(cors());
 
-server.use(express.json());
+/* =========================
+   MIDDLEWARES
+========================= */
 
-server.use("/recipes", recipesRouter);
+server.use(
+  cors()
+);
 
-// server.get('/', (req, res) => {
-//   res.send('Hello World!');
-// });
+server.use(
+  express.json()
+);
 
-server.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
 
-// vamos a hacer la petición para que se muestre nuestro front
-// Servir archivos estáticos desde la carpeta "public"
-server.use(express.static(path.join(__dirname, "public")));
+/* =========================
+   ROUTES
+========================= */
 
-// Ruta principal para servir index.html
-server.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
-});
+server.use(
+  "/recetas",
+  recetasRouter
+);
+
+server.use(
+  "/productos",
+  productosRouter
+);
+
+
+/* TEST */
+server.get(
+  '/',
+  (req, res) => {
+
+    res.send(
+      'Servidor funcionando 🚀'
+    );
+
+  }
+);
+
+
+/* =========================
+   STATIC FRONT
+========================= */
+
+server.use(
+  express.static(
+    path.join(
+      __dirname,
+      "public"
+    )
+  )
+);
+
+
+/* =========================
+   START
+========================= */
+
+server.listen(
+  PORT,
+  () => {
+
+    console.log(
+      `Server is running on port ${PORT}`
+    );
+
+  }
+);
+
 
 export default server;
