@@ -1,5 +1,5 @@
 import express
-from 'express';
+  from 'express';
 
 import {
 
@@ -12,7 +12,7 @@ import {
   eliminarProducto
 
 }
-from '../controllers/productos.js';
+  from '../controllers/productos.js';
 
 
 const router =

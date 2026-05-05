@@ -1,94 +1,94 @@
 import Producto
-from '../models/productos.js';
+  from '../models/productos.js';
 
 
 /* =========================
-   GET
+    GET
 ========================= */
 
 export const getProductos =
-async (
-  req,
-  res
-) => {
+  async (
+    req,
+    res
+  ) => {
 
-  const productos =
-    await Producto.find();
+    const productos =
+      await Producto.find();
 
-  res.json(
-    productos
-  );
+    res.json(
+      productos
+    );
 
-};
+  };
 
 
 /* =========================
-   POST
+    POST
 ========================= */
 
 export const crearProducto =
-async (
-  req,
-  res
-) => {
+  async (
+    req,
+    res
+  ) => {
 
-  const producto =
-    new Producto(
-      req.body
-    );
+    const producto =
+      new Producto(
+        req.body
+      );
 
-  const saved =
-    await producto.save();
+    const saved =
+      await producto.save();
 
-  res.status(201)
-    .json(saved);
+    res.status(201)
+      .json(saved);
 
-};
+  };
 
 
 /* =========================
-   PUT
+    PUT
 ========================= */
 
 export const actualizarProducto =
-async (
-  req,
-  res
-) => {
+  async (
+    req,
+    res
+  ) => {
 
-  const updated =
-    await Producto.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      {
-        new: true
-      }
+    const updated =
+      await Producto.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        {
+          new: true
+        }
+      );
+
+    res.json(
+      updated
     );
 
-  res.json(
-    updated
-  );
-
-};
+  };
 
 
 /* =========================
-   DELETE
+    DELETE
 ========================= */
 
 export const eliminarProducto =
-async (
-  req,
-  res
-) => {
+  async (
+    req,
+    res
+  ) => {
 
-  await Producto.findByIdAndDelete(
-    req.params.id
-  );
+    await Producto.findByIdAndDelete(
+      req.params.id
+    );
 
-  res.json({
-    message:
-      'Producto eliminado'
-  });
+    res.json({
+      message:
+        'Producto eliminado'
+    });
 
-};
+  };

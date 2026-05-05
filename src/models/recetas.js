@@ -1,4 +1,4 @@
-import {Schema , model} from 'mongoose';
+import { Schema, model } from 'mongoose';
 
 const recipeSchema = new Schema({
     name: {
@@ -17,7 +17,7 @@ const recipeSchema = new Schema({
         type: String,
     },
 },
-{versionKey: false, timestamps: true },
+    { versionKey: false, timestamps: true },
 );
 
 export default model('Recipe', recipeSchema);

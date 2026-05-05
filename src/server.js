@@ -1,16 +1,18 @@
 import express from 'express';
 import "dotenv/config";
 import cors from 'cors';
-
+import usuariosRouter
+  from './routers/usuarios.js';
 import connectDB from './config/db.js';
-
+import pedidosRouter
+  from './routers/pedidos.js';
 import dns from 'node:dns';
 
 import recetasRouter
-from './routers/recetas.js';
+  from './routers/recetas.js';
 
 import productosRouter
-from './routers/productos.js';
+  from './routers/productos.js';
 
 import path from "path";
 
@@ -20,7 +22,7 @@ import {
 
 
 /* =========================
-   CONFIG FRONT
+    CONFIG FRONT
 ========================= */
 
 const __filename =
@@ -35,7 +37,7 @@ const __dirname =
 
 
 /* =========================
-   SERVER
+    SERVER
 ========================= */
 
 const server =
@@ -47,7 +49,7 @@ const PORT =
 
 
 /* =========================
-   DNS FIX
+    DNS FIX
 ========================= */
 
 if (
@@ -64,14 +66,14 @@ if (
 
 
 /* =========================
-   DB
+    DB
 ========================= */
 
 connectDB();
 
 
 /* =========================
-   MIDDLEWARES
+    MIDDLEWARES
 ========================= */
 
 server.use(
@@ -82,9 +84,18 @@ server.use(
   express.json()
 );
 
+server.use(
+  "/usuarios",
+  usuariosRouter
+);
+
+server.use(
+  "/pedidos",
+  pedidosRouter
+);
 
 /* =========================
-   ROUTES
+    ROUTES
 ========================= */
 
 server.use(
@@ -112,7 +123,7 @@ server.get(
 
 
 /* =========================
-   STATIC FRONT
+    STATIC FRONT
 ========================= */
 
 server.use(
@@ -126,7 +137,7 @@ server.use(
 
 
 /* =========================
-   START
+    START
 ========================= */
 
 server.listen(

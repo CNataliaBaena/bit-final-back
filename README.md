@@ -1,166 +1,173 @@
-# 🧁 Cupcake API - Backend
+# 🧁 Cat Café Backend
 
-API REST desarrollada para gestionar recetas de cupcakes.
-Permite realizar operaciones CRUD conectadas a una base de datos MongoDB.
+Backend desarrollado con Node.js y Express para la plataforma **Cat Café**.
 
----
-
-## 🚀 Tecnologías utilizadas
-
-* Node.js
-* Express.js
-* MongoDB
-* Mongoose
-* CORS
-* Dotenv
+Implementa autenticación JWT, control de roles y gestión completa de productos, usuarios y pedidos.
 
 ---
 
-## 📦 Funcionalidades
+# 👩‍💻 Desarrolladora
 
-✔ Crear recetas de cupcakes
-✔ Obtener todas las recetas
-✔ Obtener una receta por ID
-✔ Actualizar recetas
-✔ Eliminar recetas
+**Natalia Baena Cabas**
 
 ---
 
-## 🔗 Endpoints
+# 🚀 Tecnologías utilizadas
 
-Base URL:
-
-```bash
-http://localhost:4000/recipes
-```
-
-### 📌 Obtener todas las recetas
-
-```http
-GET /recipes
-```
-
-### 📌 Obtener una receta por ID
-
-```http
-GET /recipes/:id
-```
-
-### 📌 Crear receta
-
-```http
-POST /recipes
-```
-
-**Body (JSON):**
-
-```json
-{
-  "name": "Cupcake de chocolate",
-  "description": "Delicioso cupcake",
-  "price": 5,
-  "ingredients": "Harina, azúcar, cacao",
-  "instructions": "Mezclar y hornear"
-}
-```
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
+- JWT
+- bcryptjs
+- dotenv
 
 ---
 
-### 📌 Actualizar receta
+# ✨ Funcionalidades principales
 
-```http
-PUT /recipes/:id
-```
+## 👤 Usuarios
 
----
+El sistema permite:
 
-### 📌 Eliminar receta
+### Clientes
 
-```http
-DELETE /recipes/:id
-```
+- Registro de cuenta
+- Login
+- Consulta de pedidos personales
 
----
+### Administrador
 
-## 📁 Estructura del proyecto
-
-```bash
-src/
- ├── controllers/
- ├── models/
- ├── routes/
- ├── config/
- └── app.js / server.js
-```
+- Login seguro
+- Gestión total de pedidos
+- Gestión completa de productos
 
 ---
 
-## ⚙️ Instalación y ejecución
+## 🔐 Seguridad
 
-1. Clonar el repositorio:
+Incluye:
 
-```bash
-git clone <tu-repo>
-cd cupcake-backend
-```
+- Encriptación de contraseñas con bcrypt
+- Tokens JWT
+- Middleware de autenticación
+- Middleware de autorización por roles
 
-2. Instalar dependencias:
+Roles:
 
-```bash
+- admin
+- cliente
+
+---
+Credenciales Admin
+
+Email: admin@catcafe.com
+Contraseña: CatCafe_Admin_2026!
+
+---
+
+## 🧁 Productos
+
+CRUD completo:
+
+- Crear productos
+- Consultar productos
+- Actualizar productos
+- Eliminar productos
+
+Cada producto incluye:
+
+- Nombre
+- Categoría
+- Descripción
+- Precio
+- Ingredientes
+- Instrucciones
+- Imagen
+
+---
+
+## 📦 Pedidos
+
+Permite:
+
+- Crear pedidos
+- Consultar pedidos
+- Filtrar pedidos por usuario
+- Actualizar estados
+
+Estados:
+
+- pendiente
+- preparando
+- entregado
+
+Solo el administrador puede cambiar estados.
+
+---
+
+# 📂 Instalación
+
+## 1. Clonar repositorio
+
+git clone <repo-url>
+
+## 2. Instalar dependencias
+
 npm install
-```
 
-3. Crear archivo `.env`:
+## 3. Crear archivo .env
 
-```env
 PORT=4000
-MONGODB_URI=tu_conexion_mongodb
-```
 
-4. Ejecutar el servidor:
+MONGO_URI=tu_uri_mongodb
 
-```bash
+JWT_SECRET=tu_secret_key
+
+---
+
+## 4. Ejecutar servidor
+
 npm run dev
-```
 
-o
+Servidor:
 
-```bash
-node src/server.js
-```
+http://localhost:4000
 
 ---
 
-## 🧪 Pruebas
+# 📌 Endpoints principales
 
-Puedes probar la API con:
+## Usuarios
 
-* Postman
-* Thunder Client
-* Curl
+POST /usuarios/register
 
----
-
-## 🧠 Consideraciones
-
-* Asegúrate de que MongoDB esté activo
-* Verifica la conexión en `.env`
-* Habilita CORS para conexión con el frontend
+POST /usuarios/login
 
 ---
 
-## 🛠 Posibles mejoras
+## Productos
 
-* 🔐 Autenticación con JWT
-* 📸 Subida de imágenes
-* 🔍 Filtros y búsqueda
-* 📊 Paginación
-* ⭐ Sistema de valoraciones
+GET /productos
+
+POST /productos
+
+PUT /productos/:id
+
+DELETE /productos/:id
+
+---
+
+## Pedidos
+
+GET /pedidos
+
+POST /pedidos
+
+PUT /pedidos/:id
 
 ---
 
-## 👨‍💻 Autor Natalia Baena Cabas
+# 📌 Estado del proyecto
 
-Proyecto desarrollado como práctica Full Stack.
-
----
+✅ Funcional y listo para presentación académica o despliegue.

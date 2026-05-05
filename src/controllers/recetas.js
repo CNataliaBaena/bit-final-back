@@ -3,26 +3,26 @@ import Recipe from '../models/recetas.js';
 const recipesController = {
   create: async (req, res) => {
     try {
-        const { name, description, price, ingredients, instructions } = req.body;
-        const newRecipe = new Recipe({ 
-          name, 
-          description, 
-          price, 
-          ingredients, 
-          instructions 
-        });
-        await newRecipe.save();
-        res.status(201).json({ message: 'Recipe created successfully'});
+      const { name, description, price, ingredients, instructions } = req.body;
+      const newRecipe = new Recipe({
+        name,
+        description,
+        price,
+        ingredients,
+        instructions
+      });
+      await newRecipe.save();
+      res.status(201).json({ message: 'Recipe created successfully' });
     } catch (error) {
-        res.status(500).json({ message: 'Error creating recipe'});
+      res.status(500).json({ message: 'Error creating recipe' });
     }
   },
   readAll: async (req, res) => {
     try {
       const recipes = await Recipe.find();
-      res.status(200).json({ message: 'Recipes retrieved successfully' , data: recipes });
+      res.status(200).json({ message: 'Recipes retrieved successfully', data: recipes });
     } catch (error) {
-      res.status(500).json({ message: 'Error retrieving recipes'});
+      res.status(500).json({ message: 'Error retrieving recipes' });
     }
   },
   read: async (req, res) => {
@@ -38,16 +38,18 @@ const recipesController = {
       const { name, description, price, ingredients, instructions } = req.body;
       const updatedRecipe = await Recipe.findByIdAndUpdate(
         req.params.id,
-        { name, 
-          description, 
-          price, 
-          ingredients, 
-          instructions })
-          if (!updatedRecipe) {
-            return res.status(404).json({ message: 'Recipe not found' });
-          }else {
-            res.status(200).json({ message: 'Recipe updated successfully' });
-          }
+        {
+          name,
+          description,
+          price,
+          ingredients,
+          instructions
+        })
+      if (!updatedRecipe) {
+        return res.status(404).json({ message: 'Recipe not found' });
+      } else {
+        res.status(200).json({ message: 'Recipe updated successfully' });
+      }
     } catch (error) {
       res.status(500).json({ message: 'Error updating recipe' });
     }
@@ -62,7 +64,7 @@ const recipesController = {
     } catch (error) {
       res.status(500).json({ message: 'Error deleting recipe' });
     }
-    }
+  }
 };
 
 export default recipesController;
