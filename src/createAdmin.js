@@ -1,142 +1,130 @@
 import 'dotenv/config';
 
-import bcrypt
-  from 'bcryptjs';
+import bcrypt from 'bcryptjs';
+import dns from 'node:dns';
 
-import connectDB
-  from './config/db.js';
-
-import Usuario
-  from './models/usuarios.js';
-
-import dns
-  from 'node:dns';
+import connectDB from './config/db.js';
+import Usuario from './models/usuarios.js';
 
 
-const createUsers =
-  async () => {
+const createUsers = async () => {
 
-    try {
+  try {
 
-      dns.setServers([
+    console.log('🔌 Conectando a MongoDB...');
 
-        '8.8.8.8',
+    dns.setServers([
+      '8.8.8.8',
+      '8.8.4.4'
+    ]);
 
-        '8.8.4.4'
+    await connectDB();
 
-      ]);
-
-
-      await connectDB();
-
-
-      /* =========================
-          LIMPIAR USUARIOS DEMO
-      ========================= */
-
-      await Usuario.deleteMany({
-
-        email: {
-
-          $in: [
-
-            'admin@catcafe.com',
-
-            'cliente@catcafe.com'
-
-          ]
-
-        }
-
-      });
+    console.log('✅ Base de datos conectada');
 
 
-      /* =========================
-          PASSWORDS
-      ========================= */
+    /* =========================
+        LIMPIAR USUARIOS DEMO
+    ========================= */
 
-      const adminPassword =
+    console.log('🧹 Eliminando usuarios demo anteriores...');
 
-        await bcrypt.hash(
+    await Usuario.deleteMany({
 
-          'CatCafe_Admin_2026!',
+      email: {
 
-          10
-
-        );
-
-
-      const clientPassword =
-
-        await bcrypt.hash(
-
-          'CatCafe_Cliente_2026!',
-
-          10
-
-        );
-
-
-      /* =========================
-          ADMIN
-      ========================= */
-
-      await Usuario.create({
-
-        email:
-
+        $in: [
           'admin@catcafe.com',
+          'cliente@catcafe.com'
+        ]
 
-        password:
+      }
 
-          adminPassword,
-
-        role:
-
-          'admin'
-
-      });
+    });
 
 
-      /* =========================
-          CLIENTE
-      ========================= */
+    /* =========================
+        ENCRIPTAR CONTRASEÑAS
+    ========================= */
 
-      await Usuario.create({
+    console.log('🔐 Encriptando contraseñas...');
 
-        email:
+    const adminPassword = await bcrypt.hash(
+      'CatCafe_Admin_2026!',
+      10
+    );
 
-          'cliente@catcafe.com',
-
-        password:
-
-          clientPassword,
-
-        role:
-
-          'cliente'
-
-      });
+    const clientPassword = await bcrypt.hash(
+      'CatCafe_Cliente_2026!',
+      10
+    );
 
 
-      console.log(
-        'Usuarios creados correctamente'
-      );
+    /* =========================
+        CREAR ADMIN
+    ========================= */
+
+    await Usuario.create({
+
+      email: 'admin@catcafe.com',
+
+      password: adminPassword,
+
+      role: 'admin'
+
+    });
+
+    console.log('👑 Usuario administrador creado');
 
 
-      process.exit();
+    /* =========================
+        CREAR CLIENTE
+    ========================= */
 
-    } catch (error) {
+    await Usuario.create({
 
-      console.error(
-        error
-      );
+      email: 'cliente@catcafe.com',
 
-      process.exit(1);
+      password: clientPassword,
 
-    }
+      role: 'cliente'
 
-  };
+    });
+
+    console.log('🛍️ Usuario cliente creado');
+
+
+    /* =========================
+        CREDENCIALES
+    ========================= */
+
+    console.log(`
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🐱 CAT CAFÉ USERS READY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+👑 ADMIN
+📧 admin@catcafe.com
+🔑 CatCafe_Admin_2026!
+
+🛍️ CLIENTE
+📧 cliente@catcafe.com
+🔑 CatCafe_Cliente_2026!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+`);
+
+    process.exit(0);
+
+  } catch (error) {
+
+    console.error('❌ Error creando usuarios:', error);
+
+    process.exit(1);
+
+  }
+
+};
 
 
 createUsers();

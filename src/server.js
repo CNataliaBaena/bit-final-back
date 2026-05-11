@@ -1,51 +1,38 @@
 import express from 'express';
 import "dotenv/config";
 import cors from 'cors';
-import usuariosRouter
-  from './routers/usuarios.js';
+
+import usuariosRouter from './routers/usuarios.js';
+import pedidosRouter from './routers/pedidos.js';
+import recetasRouter from './routers/recetas.js';
+import productosRouter from './routers/productos.js';
+
 import connectDB from './config/db.js';
-import pedidosRouter
-  from './routers/pedidos.js';
+
 import dns from 'node:dns';
-
-import recetasRouter
-  from './routers/recetas.js';
-
-import productosRouter
-  from './routers/productos.js';
-
 import path from "path";
-
-import {
-  fileURLToPath
-} from "url";
+import { fileURLToPath } from "url";
 
 
 /* =========================
     CONFIG FRONT
 ========================= */
 
-const __filename =
-  fileURLToPath(
-    import.meta.url
-  );
+const __filename = fileURLToPath(import.meta.url);
 
-const __dirname =
-  path.dirname(
-    __filename
-  );
+const __dirname = path.dirname(
+  __filename
+);
 
 
 /* =========================
     SERVER
 ========================= */
 
-const server =
-  express();
+const server = express();
 
 const PORT =
-  process.env.PORT
-  || 4000;
+  process.env.PORT || 4000;
 
 
 /* =========================
@@ -53,8 +40,7 @@ const PORT =
 ========================= */
 
 if (
-  process.env.NODE_ENV
-  !== 'production'
+  process.env.NODE_ENV !== 'production'
 ) {
 
   dns.setServers([
@@ -84,6 +70,21 @@ server.use(
   express.json()
 );
 
+// Servir archivos estáticos del front
+server.use(
+  express.static(
+    path.join(
+      __dirname,
+      "public"
+    )
+  )
+);
+
+
+/* =========================
+    ROUTES
+========================= */
+
 server.use(
   "/usuarios",
   usuariosRouter
@@ -93,10 +94,6 @@ server.use(
   "/pedidos",
   pedidosRouter
 );
-
-/* =========================
-    ROUTES
-========================= */
 
 server.use(
   "/recetas",
@@ -109,30 +106,23 @@ server.use(
 );
 
 
-/* TEST */
+/* =========================
+    HOME ROUTE
+========================= */
+
 server.get(
-  '/',
+  "/",
   (req, res) => {
 
-    res.send(
-      'Servidor funcionando 🚀'
+    res.sendFile(
+      path.join(
+        __dirname,
+        "public",
+        "index.html"
+      )
     );
 
   }
-);
-
-
-/* =========================
-    STATIC FRONT
-========================= */
-
-server.use(
-  express.static(
-    path.join(
-      __dirname,
-      "public"
-    )
-  )
 );
 
 
@@ -145,11 +135,10 @@ server.listen(
   () => {
 
     console.log(
-      `Server is running on port ${PORT}`
+      `🚀 Server running on port ${PORT}`
     );
 
   }
 );
-
 
 export default server;
