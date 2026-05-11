@@ -1,173 +1,242 @@
-# 🧁 Cat Café Backend
+# 🐱⚙️ Cat Café Backend
 
-Backend desarrollado con Node.js y Express para la plataforma **Cat Café**.
+Backend oficial de **Cat Café**, encargado de autenticación, productos, usuarios y pedidos.
 
-Implementa autenticación JWT, control de roles y gestión completa de productos, usuarios y pedidos.
+Desarrollado con Node.js, Express y MongoDB.
 
 ---
 
-# 👩‍💻 Desarrolladora
+# 👩‍💻 Desarrollado por
 
-**Natalia Baena Cabas**
+## Natalia Baena Cabas ✨
 
 ---
 
 # 🚀 Tecnologías utilizadas
 
-- Node.js
-- Express.js
-- MongoDB
-- Mongoose
-- JWT
-- bcryptjs
-- dotenv
+| Tecnología | Uso |
+|------------|------|
+| 🟢 Node.js | Runtime |
+| ⚡ Express | API REST |
+| 🍃 MongoDB | Base de datos |
+| 📦 Mongoose | ORM |
+| 🔐 JWT | Autenticación |
+| 🔒 bcrypt | Encriptación |
+| ⚙️ dotenv | Variables de entorno |
+| 🔄 Nodemon | Desarrollo |
 
 ---
 
-# ✨ Funcionalidades principales
+# 🏗️ Arquitectura MVC
+
+src/
+
+┣ 📂 controllers  
+┣ 📂 models  
+┣ 📂 routes  
+┣ 📂 middlewares  
+┣ 📂 seed  
+┣ 📂 config  
+
+---
+
+# ✨ Funcionalidades implementadas
+
+## 🔐 Autenticación
+
+✅ Login con JWT  
+✅ Encriptación con bcrypt  
+✅ Protección de endpoints  
+✅ Middleware de autenticación  
+
+---
+
+# 👥 Roles del sistema
+
+## 🛍️ Cliente
+
+Puede:
+
+✅ Iniciar sesión  
+✅ Consultar productos  
+✅ Crear pedidos  
+✅ Ver sus pedidos  
+
+---
+
+## 👑 Administrador
+
+Puede:
+
+✅ Crear productos ➕  
+✅ Editar productos ✏️  
+✅ Eliminar productos 🗑️  
+✅ Ver todos los pedidos 📦  
+✅ Cambiar estados 🔄  
+✅ Eliminar pedidos ❌  
+
+---
+
+# 📡 Endpoints disponibles
+
+# 🔐 Auth
+
+## Login
+
+```http
+POST /auth/login
+```
+
+---
+
+# 🧁 Productos
+
+## Obtener productos
+
+```http id="ynv8cw"
+GET /productos
+```
+
+## Crear producto
+
+```http id="fhue5h"
+POST /productos
+```
+
+## Actualizar producto
+
+```http id="c11e39"
+PUT /productos/:id
+```
+
+## Eliminar producto
+
+```http id="jxt7vk"
+DELETE /productos/:id
+```
+
+---
+
+# 📦 Pedidos
+
+## Crear pedido
+
+```http id="q2l9m8"
+POST /pedidos
+```
+
+## Obtener pedidos
+
+```http id="r9t9qm"
+GET /pedidos
+```
+
+## Actualizar estado
+
+```http id="7cf8n0"
+PUT /pedidos/:id
+```
+
+## Eliminar pedido
+
+```http id="l1nnp4"
+DELETE /pedidos/:id
+```
+
+---
+
+# 🍃 Colecciones MongoDB
 
 ## 👤 Usuarios
 
-El sistema permite:
+Campos:
 
-### Clientes
-
-- Registro de cuenta
-- Login
-- Consulta de pedidos personales
-
-### Administrador
-
-- Login seguro
-- Gestión total de pedidos
-- Gestión completa de productos
-
----
-
-## 🔐 Seguridad
-
-Incluye:
-
-- Encriptación de contraseñas con bcrypt
-- Tokens JWT
-- Middleware de autenticación
-- Middleware de autorización por roles
-
-Roles:
-
-- admin
-- cliente
-
----
-Credenciales Admin
-
-Email: admin@catcafe.com
-Contraseña: CatCafe_Admin_2026!
+📧 email  
+🔒 password  
+👑 role  
+📝 nombre  
 
 ---
 
 ## 🧁 Productos
 
-CRUD completo:
+Campos:
 
-- Crear productos
-- Consultar productos
-- Actualizar productos
-- Eliminar productos
-
-Cada producto incluye:
-
-- Nombre
-- Categoría
-- Descripción
-- Precio
-- Ingredientes
-- Instrucciones
-- Imagen
+📝 name  
+🏷️ category  
+📄 description  
+💰 price  
+🥛 ingredients  
+👨‍🍳 instructions  
+🖼️ image  
 
 ---
 
 ## 📦 Pedidos
 
-Permite:
+Campos:
 
-- Crear pedidos
-- Consultar pedidos
-- Filtrar pedidos por usuario
-- Actualizar estados
-
-Estados:
-
-- pendiente
-- preparando
-- entregado
-
-Solo el administrador puede cambiar estados.
+👤 usuarioId  
+🧁 productos  
+💰 total  
+📍 estado  
+📅 fecha  
 
 ---
 
-# 📂 Instalación
+# 🔑 Credenciales Admin
 
-## 1. Clonar repositorio
+## 👑 Administrador
 
-git clone <repo-url>
+📧 Email:
 
-## 2. Instalar dependencias
+admin@catcafe.com
 
-npm install
+🔒 Password:
 
-## 3. Crear archivo .env
+CatCafe_Admin_2026!
 
+---
+
+# ⚙️ Variables de entorno
+
+Crear `.env`
+
+```env
 PORT=4000
 
-MONGO_URI=tu_uri_mongodb
+MONGO_URI=tu_conexion
 
-JWT_SECRET=tu_secret_key
+JWT_SECRET=tu_secret
+```
 
 ---
 
-## 4. Ejecutar servidor
+# 📦 Instalación
 
+## Instalar dependencias
+
+```bash id="x2w5vx"
+npm install
+```
+
+## Ejecutar servidor
+
+```bash id="5bztc6"
 npm run dev
+```
 
-Servidor:
+---
 
+# 🌍 URL local
+
+```bash id="3r2x7n"
 http://localhost:4000
+```
 
 ---
 
-# 📌 Endpoints principales
+# ✅ Estado del proyecto
 
-## Usuarios
-
-POST /usuarios/register
-
-POST /usuarios/login
-
----
-
-## Productos
-
-GET /productos
-
-POST /productos
-
-PUT /productos/:id
-
-DELETE /productos/:id
-
----
-
-## Pedidos
-
-GET /pedidos
-
-POST /pedidos
-
-PUT /pedidos/:id
-
----
-
-# 📌 Estado del proyecto
-
-✅ Funcional y listo para presentación académica o despliegue.
+🟢 API completamente funcional  
+🚀 Lista para producción

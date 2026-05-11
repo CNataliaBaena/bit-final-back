@@ -6,6 +6,7 @@ import Pedido
     CREAR PEDIDO
 ========================= */
 export const crearPedido =
+
     async (req, res) => {
 
         try {
@@ -15,6 +16,7 @@ export const crearPedido =
                 await Pedido.create({
 
                     ...req.body,
+
                     /* CLIENTE LOGUEADO */
                     usuarioId:
                         req.user.id
@@ -28,7 +30,9 @@ export const crearPedido =
 
             );
 
-        } catch (error) {
+        }
+
+        catch (error) {
 
             res.status(500).json(
 
@@ -45,17 +49,8 @@ export const crearPedido =
     OBTENER PEDIDOS
 ========================= */
 export const getPedidos =
+
     async (req, res) => {
-
-        console.log(
-            'USER:',
-            req.user
-        );
-
-        console.log(
-            'ROLE:',
-            req.user.role
-        );
 
         try {
 
@@ -75,7 +70,6 @@ export const getPedidos =
                     await Pedido.find();
 
             }
-
 
             /* CLIENTE VE SOLO LOS SUYOS */
             else {
@@ -99,7 +93,9 @@ export const getPedidos =
 
             );
 
-        } catch (error) {
+        }
+
+        catch (error) {
 
             res.status(500).json(
 
@@ -132,7 +128,6 @@ export const actualizarEstadoPedido =
                 return res.status(403).json({
 
                     message:
-
                         'No autorizado'
 
                 });
@@ -169,7 +164,65 @@ export const actualizarEstadoPedido =
 
             );
 
-        } catch (error) {
+        }
+
+        catch (error) {
+
+            res.status(500).json(
+
+                error
+
+            );
+
+        }
+
+    };
+
+
+/* =========================
+    ELIMINAR PEDIDO
+========================= */
+export const eliminarPedido =
+
+    async (req, res) => {
+
+        try {
+
+            /* SOLO ADMIN */
+            if (
+
+                req.user.role !==
+                'admin'
+
+            ) {
+
+                return res.status(403).json({
+
+                    message:
+                        'No autorizado'
+
+                });
+
+            }
+
+
+            await Pedido.findByIdAndDelete(
+
+                req.params.id
+
+            );
+
+
+            res.status(200).json({
+
+                message:
+                    'Pedido eliminado'
+
+            });
+
+        }
+
+        catch (error) {
 
             res.status(500).json(
 

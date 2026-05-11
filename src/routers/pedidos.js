@@ -7,7 +7,9 @@ import {
 
     getPedidos,
 
-    actualizarEstadoPedido
+    actualizarEstadoPedido,
+
+    eliminarPedido
 
 } from '../controllers/pedidos.js';
 
@@ -58,6 +60,20 @@ router.put(
     authMiddleware,
 
     actualizarEstadoPedido
+
+);
+
+
+/* =========================
+    ELIMINAR PEDIDO
+========================= */
+router.delete(
+
+    '/:id',
+
+    authMiddleware,
+
+    eliminarPedido
 
 );
 
